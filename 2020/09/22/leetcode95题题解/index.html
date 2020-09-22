@@ -22,31 +22,34 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
-  <meta name="description" content="日常记录">
-<meta property="og:type" content="website">
-<meta property="og:title" content="我獭突然想到">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="给定一个整数 n，生成所有由 1 … n 为节点所组成的 二叉搜索树 。  示例： 输入：3输出：[[1,null,3,2],[3,2,null,1],[3,1,null,null,2],[2,1,3],[1,null,2,null,3]]解释：以上的输出对应以下 5 种不同结构的二叉搜索树：    1         3     3      2      1    \       &#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode95题题解">
+<meta property="og:url" content="http://example.com/2020/09/22/leetcode95%E9%A2%98%E9%A2%98%E8%A7%A3/index.html">
 <meta property="og:site_name" content="我獭突然想到">
-<meta property="og:description" content="日常记录">
+<meta property="og:description" content="给定一个整数 n，生成所有由 1 … n 为节点所组成的 二叉搜索树 。  示例： 输入：3输出：[[1,null,3,2],[3,2,null,1],[3,1,null,null,2],[2,1,3],[1,null,2,null,3]]解释：以上的输出对应以下 5 种不同结构的二叉搜索树：    1         3     3      2      1    \       &#x2F;">
 <meta property="og:locale">
+<meta property="article:published_time" content="2020-09-22T08:40:35.000Z">
+<meta property="article:modified_time" content="2020-09-22T08:45:09.668Z">
 <meta property="article:author" content="Marmot李">
+<meta property="article:tag" content="别人脑子就是好使">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2020/09/22/leetcode95%E9%A2%98%E9%A2%98%E8%A7%A3/">
 
 
 <script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-Hans'
   };
 </script>
 
-  <title>我獭突然想到</title>
+  <title>leetcode95题题解 | 我獭突然想到</title>
   
 
 
@@ -190,7 +193,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -202,6 +205,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E4%B8%80%E9%A2%97%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">1.</span> <span class="nav-text">构建一颗二叉搜索树</span></a></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -266,11 +270,12 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
       
 
       
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
@@ -289,10 +294,9 @@
     
     
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/22/leetcode95%E9%A2%98%E9%A2%98%E8%A7%A3/" class="post-title-link" itemprop="url">leetcode95题题解</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          leetcode95题题解
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -325,7 +329,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>给定一个整数 n，生成所有由 1 … n 为节点所组成的 二叉搜索树 。</p>
+        <p>给定一个整数 n，生成所有由 1 … n 为节点所组成的 二叉搜索树 。</p>
 <p> 示例：</p>
 <p>输入：3<br>输出：<br>[[1,null,3,2],[3,2,null,1],[3,1,null,null,2],[2,1,3],[1,null,2,null,3]]<br>解释：<br>以上的输出对应以下 5 种不同结构的二叉搜索树：</p>
 <p>   1         3     3      2      1<br>    \       /     /      / \      <br>     3     2     1      1   3      2<br>    /     /       \                 <br>   2     1         2                 3</p>
@@ -351,7 +355,6 @@
 <p>关于TreeNode root = new TreeNode(i)的放置的位置问题<br>如果这行代码放置在注释的地方，会造成一个问题，就是以当前为root根结点的树个数就<br>num = left.size() * right.size() &gt; 1时，num棵子树会共用这个root结点，在下面两层for循环中，root的左右子树一直在更新，如果每次不新建一个root，就会导致num个root为根节点的树都相同。</p>
 <p>关于如果当前子树为空，不加null行不行的问题<br>显然，如果一颗树的左子树为空，右子树不为空，要正确构建所有树，依赖于对左右子树列表的遍历，也就是上述代码两层for循环的地方，如果其中一个列表为空，那么循环都将无法进行。</p>
 
-      
     </div>
 
     
@@ -359,99 +362,25 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/%E5%88%AB%E4%BA%BA%E8%84%91%E5%AD%90%E5%B0%B1%E6%98%AF%E5%A5%BD%E4%BD%BF/" rel="tag"><i class="fa fa-tag"></i># 别人脑子就是好使</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/22/leetcode78%E9%A2%98%E9%A2%98%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/myimg.jpg">
-      <meta itemprop="name" content="Marmot李">
-      <meta itemprop="description" content="日常记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我獭突然想到">
-    </span>
-
-    
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/22/leetcode78%E9%A2%98%E9%A2%98%E8%A7%A3/" class="post-title-link" itemprop="url">leetcode78题题解</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2020-09-22 16:26:47 / Modified: 16:38:52" itemprop="dateCreated datePublished" datetime="2020-09-22T16:26:47+08:00">2020-09-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/leetcode%E4%BC%98%E7%A7%80%E9%A2%98%E8%A7%A3%E6%91%98%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">leetcode优秀题解摘录</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>leetcode78题给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。</p>
-<p>说明：解集不能包含重复的子集。</p>
-<p>示例:</p>
-<p>输入: nums = [1,2,3]<br>输出:<br>[[3],[1],[2],[1,2,3],[1,3],[2,3],[1,2],[]]</p>
-<p>这篇题解使用了回溯、递归、位运算、建立树然后中序遍历的方法。我认为讲的很透彻，而且对于学习这四种方法是一个很好地例子。原地址有作者画的图，更有助于理解，这篇文章主要用于摘录我就不照搬了。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/22/leetcode78%E9%A2%98%E9%A2%98%E8%A7%A3/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/09/22/leetcode78%E9%A2%98%E9%A2%98%E8%A7%A3/" rel="prev" title="leetcode78题题解">
+                  <i class="fa fa-chevron-left"></i> leetcode78题题解
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
   
   
-  
-
-
   
 
 
