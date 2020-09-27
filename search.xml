@@ -115,4 +115,62 @@
         <tag>别人脑子就是好使</tag>
       </tags>
   </entry>
+  <entry>
+    <title>leetcode450题题解</title>
+    <url>/2020/09/27/leetcode450%E9%A2%98%E9%A2%98%E8%A7%A3/</url>
+    <content><![CDATA[<p>给定一个二叉搜索树的根节点 root 和一个值 key，删除二叉搜索树中的 key 对应的节点，并保证二叉搜索树的性质不变。返回二叉搜索树（有可能被更新）的根节点的引用。</p>
+<p>一般来说，删除节点可分为两个步骤：</p>
+<p>首先找到需要删除的节点；<br>如果找到了，删除它。</p>
+<p>这里讲了二叉搜索树的三个性质，可以记一下。</p>
+<a id="more"></a>
+
+<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/delete-node-in-a-bst">https://leetcode-cn.com/problems/delete-node-in-a-bst</a></p>
+<h2 id="二叉搜索树的三个特性"><a href="#二叉搜索树的三个特性" class="headerlink" title="二叉搜索树的三个特性"></a>二叉搜索树的三个特性</h2><p>这些性质最好在面试之前了解清楚：</p>
+<p>二叉搜索树的中序遍历的序列是递增排序的序列。中序遍历的遍历次序：Left -&gt; Node -&gt; Right。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> LinkedList&lt;Integer&gt; <span class="title">inorder</span><span class="params">(TreeNode root, LinkedList&lt;Integer&gt; arr)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (root == <span class="keyword">null</span>) <span class="keyword">return</span> arr;</span><br><span class="line">  inorder(root.left, arr);</span><br><span class="line">  arr.add(root.val);</span><br><span class="line">  inorder(root.right, arr);</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>Successor 代表的是中序遍历序列的下一个节点。即比当前节点大的最小节点，简称后继节点。 先取当前节点的右节点，然后一直取该节点的左节点，直到左节点为空，则最后指向的节点为后继节点。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">successor</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">  root = root.right;</span><br><span class="line">  <span class="keyword">while</span> (root.left != <span class="keyword">null</span>) root = root.left;</span><br><span class="line">  <span class="keyword">return</span> root;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+
+
+<p>Predecessor 代表的是中序遍历序列的前一个节点。即比当前节点小的最大节点，简称前驱节点。先取当前节点的左节点，然后取该节点的右节点，直到右节点为空，则最后指向的节点为前驱节点。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">predecessor</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">  root = root.left;</span><br><span class="line">  <span class="keyword">while</span> (root.right != <span class="keyword">null</span>) root = root.right;</span><br><span class="line">  <span class="keyword">return</span> root;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="方法：递归"><a href="#方法：递归" class="headerlink" title="方法：递归"></a>方法：递归</h4><p>这里有三种可能的情况：</p>
+<ul>
+<li><p>要删除的节点为叶子节点，可以直接删除。</p>
+</li>
+<li><p>要删除的几点不是叶子节点且拥有右节点，则该节点可以由该节点的后继节点进行替代，该后继节点位于右子树中较低的位置。然后可以从后继节点的位置递归向下操作以删除后继节点。</p>
+</li>
+<li><p>要删除的节点不是叶子节点，且没有右节点但是有左节点。这意味着它的后继节点在它的上面，但是我们并不想返回。我们可以使用它的前驱节点进行替代，然后再递归的向下删除前驱节点。</p>
+</li>
+</ul>
+<p>算法：</p>
+<ul>
+<li>如果 key &gt; root.val，说明要删除的节点在右子树，root.right = deleteNode(root.right, key)。</li>
+<li>如果 key &lt; root.val，说明要删除的节点在左子树，root.left = deleteNode(root.left, key)。</li>
+<li>如果 key == root.val，则该节点就是我们要删除的节点，则：<ul>
+<li>如果该节点是叶子节点，则直接删除它：root = null。</li>
+<li>如果该节点不是叶子节点且有右节点，则用它的后继节点的值替代 root.val = successor.val，然后删除后继节点。</li>
+<li>如果该节点不是叶子节点且只有左节点，则用它的前驱节点的值替代 root.val = predecessor.val，然后删除前驱节点。<br>返回 root。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">successor</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">        root = root.right;</span><br><span class="line">        <span class="keyword">while</span>(root.left!=<span class="keyword">null</span>) root = root.left;</span><br><span class="line">        <span class="keyword">return</span> root.val;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">predecessor</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">        root = root.left;</span><br><span class="line">        <span class="keyword">while</span>(root.right!=<span class="keyword">null</span>) root = root.right;</span><br><span class="line">        <span class="keyword">return</span> root.val;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">deleteNode</span><span class="params">(TreeNode root, <span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span>(key&gt;root.val)&#123;</span><br><span class="line">            root.right = deleteNode(root.right, key);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(key&lt;root.val)&#123;</span><br><span class="line">            root.left = deleteNode(root.left, key);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(root.left==<span class="keyword">null</span>&amp;&amp;root.right==<span class="keyword">null</span>) root = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(root.right!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                root.val = successor(root);</span><br><span class="line">                root.right = deleteNode(root.right, root.val);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                root.val = predecessor(root);</span><br><span class="line">                root.left = deleteNode(root.left,root.val);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode优秀题解摘录</category>
+      </categories>
+      <tags>
+        <tag>别人脑子就是好使</tag>
+      </tags>
+  </entry>
 </search>
