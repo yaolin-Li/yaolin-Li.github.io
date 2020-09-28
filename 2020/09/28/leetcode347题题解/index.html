@@ -22,31 +22,34 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
-  <meta name="description" content="日常记录">
-<meta property="og:type" content="website">
-<meta property="og:title" content="我獭突然想到">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="给定一个非空的整数数组，返回其中出现频率前 k高的元素。 12输入: nums &#x3D; [1,1,1,2,2,3], k &#x3D; 2输出: [1,2]  这题题解可以复习建立小顶堆和TOPK的解决方法。还展示了如何使用PriorityQueue和comparator匿名内部、Map.Entry的foreach用法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode347题题解">
+<meta property="og:url" content="http://example.com/2020/09/28/leetcode347%E9%A2%98%E9%A2%98%E8%A7%A3/index.html">
 <meta property="og:site_name" content="我獭突然想到">
-<meta property="og:description" content="日常记录">
+<meta property="og:description" content="给定一个非空的整数数组，返回其中出现频率前 k高的元素。 12输入: nums &#x3D; [1,1,1,2,2,3], k &#x3D; 2输出: [1,2]  这题题解可以复习建立小顶堆和TOPK的解决方法。还展示了如何使用PriorityQueue和comparator匿名内部、Map.Entry的foreach用法。">
 <meta property="og:locale">
+<meta property="article:published_time" content="2020-09-28T01:47:03.000Z">
+<meta property="article:modified_time" content="2020-09-28T01:59:47.154Z">
 <meta property="article:author" content="Marmot李">
+<meta property="article:tag" content="别人脑子就是好使">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2020/09/28/leetcode347%E9%A2%98%E9%A2%98%E8%A7%A3/">
 
 
 <script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-Hans'
   };
 </script>
 
-  <title>我獭突然想到</title>
+  <title>leetcode347题题解 | 我獭突然想到</title>
   
 
 
@@ -190,7 +193,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -202,6 +205,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E5%A0%86"><span class="nav-number">1.</span> <span class="nav-text">方法一：堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E4%B8%8E%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">思路与算法</span></a></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -266,11 +270,12 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
       
 
       
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
@@ -289,10 +294,9 @@
     
     
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/28/leetcode347%E9%A2%98%E9%A2%98%E8%A7%A3/" class="post-title-link" itemprop="url">leetcode347题题解</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          leetcode347题题解
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -325,19 +329,35 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>给定一个非空的整数数组，返回其中出现频率前 <strong>k</strong>高的元素。</p>
+        <p>给定一个非空的整数数组，返回其中出现频率前 <strong>k</strong>高的元素。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums &#x3D; [1,1,1,2,2,3], k &#x3D; 2</span><br><span class="line">输出: [1,2]</span><br></pre></td></tr></table></figure>
 
 <p>这题题解可以复习建立小顶堆和TOPK的解决方法。还展示了如何使用PriorityQueue和comparator匿名内部、Map.Entry的foreach用法。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/28/leetcode347%E9%A2%98%E9%A2%98%E8%A7%A3/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
+<a id="more"></a>
+
+<p>作者：LeetCode-Solution<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/top-k-frequent-elements/solution/qian-k-ge-gao-pin-yuan-su-by-leetcode-solution/">https://leetcode-cn.com/problems/top-k-frequent-elements/solution/qian-k-ge-gao-pin-yuan-su-by-leetcode-solution/</a></p>
+<h3 id="方法一：堆"><a href="#方法一：堆" class="headerlink" title="方法一：堆"></a>方法一：堆</h3><h3 id="思路与算法"><a href="#思路与算法" class="headerlink" title="思路与算法"></a>思路与算法</h3><p>首先遍历整个数组，并使用哈希表记录每个数字出现的次数，并形成一个「出现次数数组」。找出原数组的前 kk 个高频元素，就相当于找出「出现次数数组」的前 kk 大的值。</p>
+<p>最简单的做法是给「出现次数数组」排序。但由于可能有 O(N)O(N) 个不同的出现次数（其中 NN 为原数组长度），故总的算法复杂度会达到 O(N\log N)O(NlogN)，不满足题目的要求。</p>
+<p>在这里，我们可以利用堆的思想：建立一个小顶堆，然后遍历「出现次数数组」：</p>
+<ul>
+<li><p>如果堆的元素个数小于 kk，就可以直接插入堆中。</p>
+</li>
+<li><p>如果堆的元素个数等于 kk，则检查堆顶与当前出现次数的大小。如果堆顶更大，说明至少有 kk 个数字的出现次数比当前值大，故舍弃当前值；否则，就弹出堆顶，并将当前值插入堆中。</p>
+</li>
+</ul>
+<p>遍历完成后，堆中的元素就代表了「出现次数数组」中前 kk 大的值。</p>
+<blockquote>
+<p>PriorityQueue，默认是从小到大排序，如果要改写可以加入一个重写了compare方法的comparator</p>
+<p>@Override</p>
+<p>​        public int compare(Integer left, Integer right) {</p>
+<p>​           return right.compareTo(left);<em>//原本应该是left.compareTo(right)</em></p>
+<p>​    }</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">int</span>[] topKFrequent(<span class="keyword">int</span>[] nums,<span class="keyword">int</span> k)&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] topKFrequent(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k) &#123;</span><br><span class="line">       Map&lt;Integer,Integer&gt; occurrences = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> num:nums)&#123;</span><br><span class="line">           occurrences.put(num,occurrences.getOrDefault(num,<span class="number">0</span>)+<span class="number">1</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       PriorityQueue&lt;<span class="keyword">int</span>[]&gt; q = <span class="keyword">new</span> PriorityQueue&lt;&gt;(<span class="keyword">new</span> Comparator&lt;<span class="keyword">int</span>[]&gt;()&#123;</span><br><span class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">int</span>[] m,<span class="keyword">int</span>[] n)</span></span>&#123;</span><br><span class="line">               <span class="keyword">return</span> m[<span class="number">1</span>]-n[<span class="number">1</span>];</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line">       <span class="keyword">for</span>(Map.Entry&lt;Integer,Integer&gt; entry : occurrences.entrySet())&#123;</span><br><span class="line">           <span class="keyword">int</span> num = entry.getKey(),count = entry.getValue();</span><br><span class="line">           <span class="keyword">if</span>(q.size()==k)&#123;</span><br><span class="line">               <span class="keyword">if</span>(q.peek()[<span class="number">1</span>]&lt;count)&#123;</span><br><span class="line">                   q.poll();</span><br><span class="line">                   q.offer(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;num,count&#125;);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">               q.offer(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;num,count&#125;);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">int</span>[] ret = <span class="keyword">new</span> <span class="keyword">int</span>[k];</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; k; ++i)&#123;</span><br><span class="line">           ret[i] = q.poll()[<span class="number">0</span>];</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
     </div>
 
     
@@ -345,352 +365,25 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/%E5%88%AB%E4%BA%BA%E8%84%91%E5%AD%90%E5%B0%B1%E6%98%AF%E5%A5%BD%E4%BD%BF/" rel="tag"><i class="fa fa-tag"></i># 别人脑子就是好使</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/27/leetcode450%E9%A2%98%E9%A2%98%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/myimg.jpg">
-      <meta itemprop="name" content="Marmot李">
-      <meta itemprop="description" content="日常记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我獭突然想到">
-    </span>
-
-    
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/27/leetcode450%E9%A2%98%E9%A2%98%E8%A7%A3/" class="post-title-link" itemprop="url">leetcode450题题解</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2020-09-27 11:29:07 / Modified: 11:42:43" itemprop="dateCreated datePublished" datetime="2020-09-27T11:29:07+08:00">2020-09-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/leetcode%E4%BC%98%E7%A7%80%E9%A2%98%E8%A7%A3%E6%91%98%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">leetcode优秀题解摘录</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>给定一个二叉搜索树的根节点 root 和一个值 key，删除二叉搜索树中的 key 对应的节点，并保证二叉搜索树的性质不变。返回二叉搜索树（有可能被更新）的根节点的引用。</p>
-<p>一般来说，删除节点可分为两个步骤：</p>
-<p>首先找到需要删除的节点；<br>如果找到了，删除它。</p>
-<p>这里讲了二叉搜索树的三个性质，可以记一下。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/27/leetcode450%E9%A2%98%E9%A2%98%E8%A7%A3/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/24/leetcode144%E9%A2%98%E9%A2%98%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/myimg.jpg">
-      <meta itemprop="name" content="Marmot李">
-      <meta itemprop="description" content="日常记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我獭突然想到">
-    </span>
-
-    
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/24/leetcode144%E9%A2%98%E9%A2%98%E8%A7%A3/" class="post-title-link" itemprop="url">leetcode144题题解</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2020-09-24 14:38:14 / Modified: 15:06:37" itemprop="dateCreated datePublished" datetime="2020-09-24T14:38:14+08:00">2020-09-24</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/leetcode%E4%BC%98%E7%A7%80%E9%A2%98%E8%A7%A3%E6%91%98%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">leetcode优秀题解摘录</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>给定一个二叉树，返回它的 前序 遍历。</p>
-<p> 示例:</p>
-<p>输入: [1,null,2,3]<br>   1<br>    <br>     2<br>    /<br>   3 </p>
-<p>输出: [1,2,3]<br>进阶: 递归算法很简单，你可以通过迭代算法完成吗？</p>
-<p>这个题解把前中后序的迭代和递归都列了出来，可以记一下。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/24/leetcode144%E9%A2%98%E9%A2%98%E8%A7%A3/#more" rel="contents">
-                Read more &raquo;
-              </a>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/09/27/leetcode450%E9%A2%98%E9%A2%98%E8%A7%A3/" rel="prev" title="leetcode450题题解">
+                  <i class="fa fa-chevron-left"></i> leetcode450题题解
+                </a>
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/22/leetcode95%E9%A2%98%E9%A2%98%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/myimg.jpg">
-      <meta itemprop="name" content="Marmot李">
-      <meta itemprop="description" content="日常记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我獭突然想到">
-    </span>
-
-    
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/22/leetcode95%E9%A2%98%E9%A2%98%E8%A7%A3/" class="post-title-link" itemprop="url">leetcode95题题解</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2020-09-22 16:40:35 / Modified: 16:46:18" itemprop="dateCreated datePublished" datetime="2020-09-22T16:40:35+08:00">2020-09-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/leetcode%E4%BC%98%E7%A7%80%E9%A2%98%E8%A7%A3%E6%91%98%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">leetcode优秀题解摘录</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>给定一个整数 n，生成所有由 1 … n 为节点所组成的 二叉搜索树 。</p>
-<p> 示例：</p>
-<p>输入：3<br>输出：<br>[[1,null,3,2],[3,2,null,1],[3,1,null,null,2],[2,1,3],[1,null,2,null,3]]<br>解释：<br>以上的输出对应以下 5 种不同结构的二叉搜索树：</p>
-<p>   1         3     3      2      1<br>    \       /     /      / \      <br>     3     2     1      1   3      2<br>    /     /       \                 <br>   2     1         2                 3</p>
-<p>提示：</p>
-<p>0 &lt;= n &lt;= 8</p>
-<p>这个题解从如何构建二叉树开始，一步步教怎么枚举所有的可能性。可以学会构建二叉树和穷举可能性这两种方法。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/22/leetcode95%E9%A2%98%E9%A2%98%E8%A7%A3/#more" rel="contents">
-                Read more &raquo;
-              </a>
+            <div class="post-nav-item">
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          </div>
     </footer>
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/22/leetcode78%E9%A2%98%E9%A2%98%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/myimg.jpg">
-      <meta itemprop="name" content="Marmot李">
-      <meta itemprop="description" content="日常记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我獭突然想到">
-    </span>
-
-    
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/22/leetcode78%E9%A2%98%E9%A2%98%E8%A7%A3/" class="post-title-link" itemprop="url">leetcode78题题解</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2020-09-22 16:26:47 / Modified: 16:38:52" itemprop="dateCreated datePublished" datetime="2020-09-22T16:26:47+08:00">2020-09-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/leetcode%E4%BC%98%E7%A7%80%E9%A2%98%E8%A7%A3%E6%91%98%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">leetcode优秀题解摘录</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>leetcode78题给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。</p>
-<p>说明：解集不能包含重复的子集。</p>
-<p>示例:</p>
-<p>输入: nums = [1,2,3]<br>输出:<br>[[3],[1],[2],[1,2,3],[1,3],[2,3],[1,2],[]]</p>
-<p>这篇题解使用了回溯、递归、位运算、建立树然后中序遍历的方法。我认为讲的很透彻，而且对于学习这四种方法是一个很好地例子。原地址有作者画的图，更有助于理解，这篇文章主要用于摘录我就不照搬了。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/22/leetcode78%E9%A2%98%E9%A2%98%E8%A7%A3/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
